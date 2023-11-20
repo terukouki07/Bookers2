@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bookers2</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+    <% if user_signed_in? %>
+    <!--サインインしているときに表示-->
+      <li>
+        <%= link_to "Bookers", root_path%>
+      </li>
+
+      <li>
+        <%= link_to "Home" %>
+      </li>
+
+      <li>
+        <%= link_to "User" %>
+      </li>
+
+      <li>
+        <%= link_to "Books" %>
+      </li>
+
+      <li>
+        <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+      </li>
+    <% else %>
+    <!--サインインしていないときに-->
+      <li>
+        <%= link_to "Bookers", root_path %>
+      </li>
+
+      <li>
+        <%= link_to "Home", root_path %>
+      </li>
+
+      <li>
+        <%= link_to "About", about_path %>
+      </li>
+
+      <li>
+        <%= link_to "Sign up", new_user_registration_path %>
+      </li>
+
+      <li>
+        <%= link_to "Log in", new_user_session_path %>
+      </li>
+    <% end %>
+  </header>
+    <%= yield %>
+  </body>
+</html>
