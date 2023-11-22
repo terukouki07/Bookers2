@@ -1,42 +1,23 @@
-<h2>User info</h2>
-<table>
-  <thead>
-    <tr>
-      <th>name</th>
-      <th></th>
-    </tr>
-    <tr>
-      <th>introduction</th>
-      <th></th>
-    </tr>
-  </thead>
-</table>
+<!--投稿成功のフラッシュメッセージ-->
+<%= flash[:notice] %>
 
-
-<h2>New book</h2>
-<%= form_with model: @book do |f| %>
-  <p>Title</p>
-  <%= f.text_field :title %>
-  <p>Opinion</p>
-  <%= f.text_area :body %>
-  <%= f.submit 'Create Book' %>
-<% end %>
-
+<!--_new.html.erbへテンプレート化-->
+<%= render 'books/new', book: @book %>
 
 <h2>Book detail</h2>
 <table>
   <tbody>
       <tr>
-        <td><p><%= @books.user.name %></p></td>
+        <!--UserのShowへのリンクが分からない-->
+        <td><%= link_to @books.user.name %></td>
         <td><%= link_to @books.title, book_path(@books.id) %></td>
         <td><%= @books.body %></td>
         <td>
             <%= link_to "Edit", edit_book_path(@books.id) %>
         </td>
-        <!--ここが分からない-->
         <td>
           <% if @books.user == current_user %>
-            <%= link_to "Destroy", books_path(@books.id), method: :delete %>
+            <%= link_to "Destroy", book_path(@books.id), method: :delete, "data-confirm" => "本当に消しますか？" %>
           <% end %>
         </td>
       </tr>
