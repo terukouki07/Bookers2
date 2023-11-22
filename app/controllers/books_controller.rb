@@ -2,6 +2,7 @@ class BooksController < ApplicationController
   def index
     @book = Book.new
     @books = Book.all
+    @user = current_user
   end
 
   def create
@@ -18,6 +19,7 @@ class BooksController < ApplicationController
   def show
     @book = Book.new
     @books = Book.find(params[:id])
+    @user = User.find(current_user.id)
   end
 
   def destroy
@@ -40,10 +42,10 @@ class BooksController < ApplicationController
     end
   end
 
-  # 投稿データのストロングパラメータ
+  # ストロングパラメータ
   private
 
   def book_params
-    params.require(:book).permit(:title, :image, :body)
+    params.require(:book).permit(:title, :profile_image, :body)
   end
 end

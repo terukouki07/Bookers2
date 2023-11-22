@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
          
-  # ActiveStorage（これには呼び出したい画像を書く）
+  # ActiveStorage（アクティブストレージを使うための記述とカラムを設定する。）
   has_one_attached :profile_image
   
   def get_profile_image(width, height)
