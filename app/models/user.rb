@@ -21,4 +21,7 @@ class User < ApplicationRecord
   
   #Bookモデルのアソシエーション 
   has_many :books, dependent: :destroy
+  
+  # バリデーション
+  validates :name, presence: true
 end
