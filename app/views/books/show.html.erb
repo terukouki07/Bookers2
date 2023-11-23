@@ -9,11 +9,15 @@
   <tbody>
       <tr>
         <!--UserのShowへのリンクが分からない-->
-        <td><%= link_to @books.user.name %></td>
+          <td><%= image_tag @books.user.get_profile_image(100,100) %></td>
+          <td><%= link_to @books.user.name %></td>
+        <!---->
         <td><%= link_to @books.title, book_path(@books.id) %></td>
         <td><%= @books.body %></td>
         <td>
+          <% if @books.user == current_user %>
             <%= link_to "Edit", edit_book_path(@books.id) %>
+          <% end %>
         </td>
         <td>
           <% if @books.user == current_user %>
