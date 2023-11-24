@@ -1,22 +1,29 @@
 <!--_new.html.erbへテンプレート化-->
-<%= render 'books/new', book: @book, user: @user %>
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <%= render 'books/new', book: @book, user: @user %>
 
-<h2>Users</h2>
+    <div class="col-md-8 offset-md-1">
+      <h2>Users</h2>
 
-<table>
-  <thead>
-    <tr>
-      <th>image</th>
-      <th>name</th>
-    </tr>
-  </thead>
-  <% @users.each do |user| %>
-  <tbody>
-    <tr>
-        <td><%= image_tag user.get_profile_image(100,100) %></td>
-        <td><%= user.name %></td>
-        <td><%= link_to "Show", user_path(user.id) %></td>
-    </tr>
-  </tbody>
-  <% end %>
-</table>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>image</th>
+            <th>name</th>
+            <th></th>
+          </tr>
+        </thead>
+        <% @users.each do |user| %>
+        <tbody>
+          <tr>
+              <td><%= image_tag user.get_profile_image(100,100) %></td>
+              <td><%= user.name %></td>
+              <td><%= link_to "Show", user_path(user.id) %></td>
+          </tr>
+        </tbody>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

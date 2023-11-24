@@ -1,29 +1,37 @@
 <!--投稿成功のフラッシュメッセージ-->
 <%= flash[:notice] %>
 
-<!--_new.html.erbへテンプレート化-->
-<%= render 'books/new', book: @book, user: @user%>
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <!--_new.html.erbへテンプレート化-->
+    <%= render 'books/new', book: @book, user: @user%>
 
-<h2>Book detail</h2>
-<table>
-  <tbody>
-      <tr>
-        <!--UserのShowへのリンクが分からない-->
-          <td><%= image_tag @books.user.get_profile_image(100,100) %></td>
-          <td><%= link_to @books.user.name %></td>
-        <!---->
-        <td><%= link_to @books.title, book_path(@books.id) %></td>
-        <td><%= @books.body %></td>
-        <td>
-          <% if @books.user == current_user %>
-            <%= link_to "Edit", edit_book_path(@books.id) %>
-          <% end %>
-        </td>
-        <td>
-          <% if @books.user == current_user %>
-            <%= link_to "Destroy", book_path(@books.id), method: :delete, "data-confirm" => "本当に消しますか？" %>
-          <% end %>
-        </td>
-      </tr>
-  </tbody>
-</table>
+    <div class="col-md-8 offset-md-1">
+      <h2>Book detail</h2>
+      <table class="table">
+        <tbody>
+            <tr>
+              <td>
+                <%= link_to user_path(@user.id) do %>
+                  <%= image_tag @books.user.get_profile_image(100,100) %><br>
+                  <%= @books.user.name %>
+                <% end %>
+              </td>
+              <td><%= link_to @books.title, book_path(@books.id) %></td>
+              <td><%= @books.body %></td>
+              <td>
+                <% if @books.user == current_user %>
+                  <%= link_to "Edit", edit_book_path(@books.id), class:"btn btn-sm btn-success" %><!--edit_book_111727-->
+                <% end %>
+              </td>
+              <td>
+                <% if @books.user == current_user %>
+                  <%= link_to "Destroy", book_path(@books.id), method: :delete, "data-confirm" => "本当に消しますか？", class: "btn btn-sm btn-danger" %><!--destroy_book_111727-->
+                <% end %>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

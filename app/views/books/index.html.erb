@@ -1,33 +1,42 @@
-<!--バリデーションのエラー文-->
-<% if @book.errors.any? %>
-  <%= @book.errors.count %> errors prohibited this obj from being saved:
-  <ul>
-    <% @book.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-  </ul>
-<% end %>
-
-<!--_new.html.erbへテンプレート化-->
-<%= render 'books/new', book: @book, user: @user %>
-
-<h2>Books</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Opinion</th>
-    </tr>
-  </thead>
-  <% @books.each do |book| %>
-  <tbody>
-    <tr>
-      <!--画像にuser showリンクを持たせる-->
-      <td><%= image_tag book.user.get_profile_image(100,100) %></td>
-      <!---->
-      <td><%= link_to book.title, book_path(book.id)%> </td>
-      <td><%= book.body %></td>
-    </tr>
-  </tbody>
+<div class="container px-5 px-sm-0">
+  <!--バリデーションのエラー文-->
+  <% if @book.errors.any? %>
+    <h2><%= @book.errors.count %> errors prohibited this obj from being saved:</h2>
+    <ul>
+      <% @book.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
   <% end %>
-</table>
+
+  <div class="row">
+    <!--_new.html.erbへテンプレート化-->
+    <%= render 'books/new', book: @book, user: @user %>
+
+    <div class="col-md-8 offset-md-1">
+      <h2>Books</h2>
+      <table class="table table-hover table-inverse">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Opinion</th>
+          </tr>
+        </thead>
+        <% @books.each do |book| %>
+        <tbody>
+          <tr>
+            <td>
+              <%= link_to user_path(book.user.id) do %>
+                <%= image_tag book.user.get_profile_image(100,100) %>
+              <% end %>
+            </td>
+            <td><%= link_to book.title, book_path(book.id)%> </td>
+            <td><%= book.body %></td>
+          </tr>
+        </tbody>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
