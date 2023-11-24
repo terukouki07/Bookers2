@@ -3,10 +3,10 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-         
+
   # ActiveStorage（アクティブストレージを使うための記述とカラムを設定する。）
   has_one_attached :profile_image
-  
+
   def get_profile_image(width, height)
     # profile_imageがあるかどうか（unlessない場合の意味）
     unless profile_image.attached?
@@ -18,10 +18,12 @@ class User < ApplicationRecord
     # 画像があった場合はサイズを決めて終わり。
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
-  
-  #Bookモデルのアソシエーション 
+
+  #Bookモデルのアソシエーション
   has_many :books, dependent: :destroy
-  
+
   # バリデーション
-  validates :name, presence: true
+  validates :name, presence: true, length: { minimum: 2, maximum: 20 }, uniqueness: true
+  validates :introduction, length: { maximum: 50 }
+
 end
